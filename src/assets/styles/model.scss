@@ -1,0 +1,17 @@
+.model-modal-container {
+  width: 500px;
+  position: absolute;
+  top: 10%;
+  left: 30%;
+  border: 1px solid;
+  border-radius: 12px;
+  background-color: #ffffff;
+  height: 80vh;
+  overflow-y: scroll;
+  &.show {
+    display: block;
+  }
+  &.hide {
+    display: none;
+  }
+}

@@ -1,7 +1,8 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { config } from "../utils/Api";
 import "../assets/styles/home.scss";
+import DeviceContext from "../utils/DeviceContext";
 
 interface Device {
   Id: number;
@@ -15,6 +16,7 @@ interface Device {
 const Home: FC = () => {
   const [loading, setLoading] = useState(true);
   const [devices, setDevices] = useState<Device[]>([]);
+  const { updateModalOpen } = useContext(DeviceContext);
 
   useEffect(() => {
     axios
@@ -55,6 +57,14 @@ const Home: FC = () => {
               <span>
                 <b>Comment&nbsp;</b>
                 {device.Comment !== null ? device.Comment : "Not found"}
+              </span>
+              <span
+                className="show-action"
+                onClick={() =>
+                  updateModalOpen(true, device.BrandId, device.Name)
+                }
+              >
+                Show Data
               </span>
             </div>
           ))}
