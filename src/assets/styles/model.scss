@@ -1,17 +1,44 @@
 .model-modal-container {
-  width: 500px;
-  position: absolute;
+  font-family: "ZillaSlab";
+  width: 400px;
+  position: fixed;
   top: 10%;
-  left: 30%;
-  border: 1px solid;
+  left: 35%;
+  border: 1px solid #ffffff;
   border-radius: 12px;
   background-color: #ffffff;
   height: 80vh;
   overflow-y: scroll;
+  z-index: 1;
+  padding: 20px 0;
+  box-shadow: 0 0 10px #bdaaaa;
   &.show {
     display: block;
   }
   &.hide {
     display: none;
+  }
+  .single-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  p {
+    margin: auto;
+    width: fit-content;
+  }
+  .close-btn {
+    border: 1px solid #118cf0;
+    background-color: #118cf0;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 5px 20px;
+    display: block;
+    margin: 10px auto 0 auto;
+    &:hover {
+      opacity: 0.85;
+      cursor: pointer;
+    }
   }
 }
