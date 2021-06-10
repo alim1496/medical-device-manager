@@ -1,12 +1,20 @@
+@import "mixins";
+
+.disable-outside-clicks {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
 .model-modal-container {
   font-family: "ZillaSlab";
   width: 400px;
   position: fixed;
   top: 10%;
   left: 35%;
-  border: 1px solid #ffffff;
-  border-radius: 12px;
-  background-color: #ffffff;
+  @include bordered($color: #ffffff, $radius: 12px);
   height: 80vh;
   overflow-y: scroll;
   z-index: 1;
@@ -28,14 +36,7 @@
     width: fit-content;
   }
   .close-btn {
-    border: 1px solid #118cf0;
-    background-color: #118cf0;
-    color: #ffffff;
-    font-weight: bold;
-    border-radius: 4px;
-    padding: 5px 20px;
-    display: block;
-    margin: 10px auto 0 auto;
+    @include button-shape;
     &:hover {
       opacity: 0.85;
       cursor: pointer;

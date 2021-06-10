@@ -1,0 +1,16 @@
+@mixin button-shape {
+  border: 1px solid #118cf0;
+  background-color: #118cf0;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 5px 20px;
+  display: block;
+  margin: 10px auto 0 auto;
+}
+
+@mixin bordered($color, $radius) {
+  border: 1px solid $color;
+  border-radius: $radius;
+  background-color: $color;
+}

@@ -38,8 +38,19 @@ const ModelDataModal: FC = () => {
           setLoading(false);
           console.log(err);
         });
+      window.addEventListener("click", handleClick);
+      return () => {
+        window.removeEventListener("click", handleClick);
+      };
     }
   }, [isModalOpen]);
+
+  const handleClick = (e: any) => {
+    const cur = e.target;
+    if (cur !== document.querySelector("#data-modal")) {
+      closeModal();
+    }
+  };
 
   const closeModal = () => {
     setItems([]);
@@ -47,7 +58,10 @@ const ModelDataModal: FC = () => {
   };
 
   return (
-    <div className={`model-modal-container ${isModalOpen ? "show" : "hide"}`}>
+    <div
+      id="data-modal"
+      className={`model-modal-container ${isModalOpen ? "show" : "hide"}`}
+    >
       <p>
         <b>{model} Data List</b>
       </p>

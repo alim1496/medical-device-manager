@@ -3,6 +3,7 @@ import axios from "axios";
 import { config } from "../utils/Api";
 import "../assets/styles/home.scss";
 import DeviceContext from "../utils/DeviceContext";
+import Auth from "../utils/Auth";
 
 interface Device {
   Id: number;
@@ -14,29 +15,53 @@ interface Device {
 }
 
 const Home: FC = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [devices, setDevices] = useState<Device[]>([]);
   const { updateModalOpen } = useContext(DeviceContext);
 
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    setLoading(true);
+    setError(false);
     axios
       .get("http://163.47.115.230:30000/api/overview/modeltype", config)
       .then(({ data }) => {
         setDevices(data);
         setLoading(false);
+        setError(false);
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
+        setError(true);
       });
-  }, []);
+  };
+
+  const logout = () => {
+    Auth.deauthenticateUser();
+    window.location.href = "/login";
+  };
 
   return (
     <div className="container">
       <div className="top-row">
         <h2>Medical Device List</h2>
+        <button type="button" onClick={logout} className="btn-logout">
+          Logout
+        </button>
       </div>
       {loading && <div className="main-loader" />}
+      {!loading && error && (
+        <div className="error-container">
+          <h2>Something went wrong</h2>
+          <button type="button" onClick={fetchData}>
+            Try Again
+          </button>
+        </div>
+      )}
       <div className="device-list">
         {!loading &&
           devices &&
