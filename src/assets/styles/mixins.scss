@@ -1,7 +1,11 @@
+$button-bg: #118cf0;
+$common-bg: #ffffff;
+$secondary-bg: #f2f2f2;
+
 @mixin button-shape {
-  border: 1px solid #118cf0;
-  background-color: #118cf0;
-  color: #ffffff;
+  border: 1px solid $button-bg;
+  background-color: $button-bg;
+  color: $common-bg;
   font-weight: bold;
   border-radius: 4px;
   padding: 5px 20px;
@@ -13,4 +17,11 @@
   border: 1px solid $color;
   border-radius: $radius;
   background-color: $color;
+}
+
+@mixin input-box {
+  width: 100%;
+  background-color: $secondary-bg;
+  border: 1px solid $secondary-bg;
+  border-radius: 4px;
 }

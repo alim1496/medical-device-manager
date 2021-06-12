@@ -5,9 +5,11 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ModelDataModal from "./components/ModelDataModal";
 import { DeviceContextProvider } from "./utils/DeviceContext";
+import AddDataModal from "./components/AddDataModal";
 
 const App: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [addModalOpen, setAddModalOpen] = useState(false);
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
   const updateModalOpen = (update: boolean, b: string, m: string) => {
@@ -15,10 +17,21 @@ const App: FC = () => {
     setBrand(b);
     setModel(m);
   };
-  const deviceContextValue = { isModalOpen, updateModalOpen, brand, model };
+  const updateAddModalOpen = (update: boolean) => {
+    setAddModalOpen(update);
+  };
+  const deviceContextValue = {
+    isModalOpen,
+    updateModalOpen,
+    brand,
+    model,
+    addModalOpen,
+    updateAddModalOpen,
+  };
   return (
     <DeviceContextProvider value={deviceContextValue}>
       <BrowserRouter>
+        <AddDataModal />
         <ModelDataModal />
         <Switch>
           <ProtectedRoute path="/" exact component={Home} />

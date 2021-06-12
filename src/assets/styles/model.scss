@@ -1,11 +1,22 @@
 @import "mixins";
 
-.disable-outside-clicks {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.main-modal {
+  &.show {
+    display: block;
+  }
+  &.hide {
+    display: none;
+  }
+  .modal-overlay {
+    background-color: rgba(17, 25, 29, 0.64);
+    bottom: 0;
+    cursor: default;
+    display: block;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
 
 .model-modal-container {
@@ -20,11 +31,29 @@
   z-index: 1;
   padding: 20px 0;
   box-shadow: 0 0 10px #bdaaaa;
-  &.show {
-    display: block;
+  &.data-modal {
+    width: 350px;
+    padding: 20px;
+    left: 40%;
+    height: fit-content;
+    text-align: center;
+    overflow-y: hidden;
   }
-  &.hide {
-    display: none;
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    input {
+      @include input-box;
+      height: 35px;
+      padding-left: 10px;
+      margin-bottom: 10px;
+      width: 95%;
+    }
+    select {
+      width: 98%;
+      margin-bottom: 10px;
+    }
   }
   .single-item {
     display: flex;
@@ -34,6 +63,27 @@
   p {
     margin: auto;
     width: fit-content;
+  }
+  .btn-holder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    span {
+      margin-right: 20px;
+      &:hover {
+        opacity: 0.85;
+        cursor: pointer;
+      }
+    }
+  }
+  .add-btn {
+    margin: 0 !important;
+    @include button-shape;
+    &:hover {
+      opacity: 0.85;
+      cursor: pointer;
+    }
   }
   .close-btn {
     @include button-shape;

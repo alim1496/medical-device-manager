@@ -71,7 +71,8 @@
   }
 }
 
-.btn-logout {
+.btn-logout,
+.btn-add {
   @include button-shape;
   margin: 0 !important;
   height: 38px;

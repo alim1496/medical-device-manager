@@ -1,50 +1,59 @@
-import React, { FC } from "react";
-import {
-  Formik,
-  FormikHelpers,
-  FormikProps,
-  Form,
-  Field,
-  FieldProps,
-  FormikErrors,
-  FormikTouched,
-} from "formik";
+import React, { FC, useState } from "react";
 import axios from "axios";
 import "../assets/styles/login.scss";
 
-interface MyFormValues {
-  email: string;
-  password: string;
-}
-
 const Login: FC = () => {
-  const initialValues: MyFormValues = { email: "", password: "" };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const submitForm = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    const data = { email, password };
+    axios
+      .post("http://163.47.115.230:30000/api/login", data)
+      .then(({ data: { access_token } }) => {
+        setLoading(false);
+        localStorage.setItem("jwt-token", access_token);
+        window.location.href = "/";
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+
   return (
     <div className="login-container">
       <h3>LOGIN</h3>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={(values) => {
-          axios
-            .post("http://163.47.115.230:30000/api/login", values)
-            .then(({ data: { access_token } }) => {
-              localStorage.setItem("jwt-token", access_token);
-              window.location.href = "/";
-            })
-            .catch((err) => console.log(err));
-        }}
-      >
-        <Form>
-          <Field id="email" name="email" placeholder="email" type="email" />
-          <Field
-            id="password"
-            name="password"
-            placeholder="password"
-            type="password"
-          />
-          <button type="submit">Login</button>
-        </Form>
-      </Formik>
+      <form>
+        <input
+          id="email"
+          name="email"
+          placeholder="email"
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          id="password"
+          name="password"
+          placeholder="password"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {loading ? (
+          <div className="loading-sm" />
+        ) : (
+          <button
+            type="submit"
+            onClick={submitForm}
+            disabled={email === "" || password == ""}
+          >
+            Login
+          </button>
+        )}
+      </form>
     </div>
   );
 };

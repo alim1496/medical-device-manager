@@ -18,7 +18,7 @@ const Home: FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [devices, setDevices] = useState<Device[]>([]);
-  const { updateModalOpen } = useContext(DeviceContext);
+  const { updateModalOpen, updateAddModalOpen } = useContext(DeviceContext);
 
   useEffect(() => {
     fetchData();
@@ -49,6 +49,13 @@ const Home: FC = () => {
     <div className="container">
       <div className="top-row">
         <h2>Medical Device List</h2>
+        <button
+          type="button"
+          className="btn-add"
+          onClick={() => updateAddModalOpen(true)}
+        >
+          Add Model
+        </button>
         <button type="button" onClick={logout} className="btn-logout">
           Logout
         </button>
