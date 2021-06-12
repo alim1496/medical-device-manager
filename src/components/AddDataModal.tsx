@@ -21,6 +21,8 @@ const AddDataModal: FC = () => {
   const [TypeId, setTypeId] = useState(0);
   const [Comment, setComment] = useState("");
   const [Description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
     axios
@@ -32,11 +34,18 @@ const AddDataModal: FC = () => {
   const postData = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     const data = { Name, BrandId, TypeId, Comment, Description };
-    console.log(data);
+    setLoading(true);
+    setMsg("");
     axios
       .post("http://163.47.115.230:30000/api/devicemodel", data, config)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        setLoading(false);
+        setMsg("Model Added Successfully");
+      })
+      .catch((err) => {
+        setLoading(false);
+        setMsg("Could Not Add Model");
+      });
   };
 
   const closeModal = () => {
@@ -114,10 +123,15 @@ const AddDataModal: FC = () => {
           </div>
           <div className="btn-holder">
             <span onClick={closeModal}>Cancel</span>
-            <button type="submit" className="add-btn" onClick={postData}>
-              Submit
-            </button>
+            {loading ? (
+              <div className="loading-sm add" />
+            ) : (
+              <button type="submit" className="add-btn" onClick={postData}>
+                Submit
+              </button>
+            )}
           </div>
+          {msg !== "" && <p>{msg}</p>}
         </form>
       </div>
     </div>

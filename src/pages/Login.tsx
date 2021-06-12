@@ -6,10 +6,12 @@ const Login: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState("");
 
   const submitForm = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
+    setMsg("");
     const data = { email, password };
     axios
       .post("http://163.47.115.230:30000/api/login", data)
@@ -20,6 +22,7 @@ const Login: FC = () => {
       })
       .catch((err) => {
         console.log(err);
+        setMsg("Wrong email password combination");
         setLoading(false);
       });
   };
@@ -54,6 +57,7 @@ const Login: FC = () => {
           </button>
         )}
       </form>
+      {msg !== "" && <p className="error">{msg}</p>}
     </div>
   );
 };
